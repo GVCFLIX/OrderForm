@@ -16,6 +16,18 @@
 
   <h3 id="responseMessage" style="color: green;"></h3>
 
+
+<!-- Order Tracking Section Start  -->
+  <hr>
+<h3>Track Your Order</h3>
+<label>Order Code: <input type="text" id="trackCode" placeholder="e.g., BC-ORD202505011520"></label>
+<button onclick="trackOrder()">Track Order</button>
+
+<div id="trackingResult" style="margin-top: 1em; color: blue;"></div>
+
+<!--   Order Tracking Section End  -->
+  
+
   <script>
   document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault();
