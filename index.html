@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 0.5rem 0;
+    }
+    #responseMsg {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h2>Place Your Order</h2>
+  <form id="orderForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="phone" placeholder="Phone Number" required>
+    <textarea id="address" placeholder="Address" required></textarea>
+    <textarea id="message" placeholder="Message (Optional)"></textarea>
+    <button type="submit">Submit Order</button>
+  </form>
+  <div id="responseMsg"></div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
