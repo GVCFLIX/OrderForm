@@ -37,41 +37,39 @@
 
 
 const form = document.getElementById('orderForm');
-const responseDiv = document.getElementById('responseMsg');
+  const responseDiv = document.getElementById('response');
 
-form.addEventListener('submit', function (e) {
-  e.preventDefault();
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  const data = {
-    name: document.getElementById('name').value,
-    phone: document.getElementById('phone').value,
-    address: document.getElementById('address').value,
-    message: document.getElementById('message').value
-  };
+    const data = {
+      name: document.getElementById('name').value,
+      phone: document.getElementById('phone').value,
+      address: document.getElementById('address').value,
+      message: document.getElementById('message').value
+    };
 
-  fetch("https://script.google.com/macros/s/AKfycbxUzuwPc0ei86yobu9L_XpGOOl8aoSVWzeFhWrzFHIAWGFPrpc6bmZVOYbHQ64gqMLr/exec", {
-    method: "POST",
-     mode: 'cors',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(response => {
-    if (response.success) {
-      responseDiv.innerHTML = `✅ Order placed! Your code is <strong>${response.orderCode}</strong>`;
-      form.reset();
-    } else {
-      responseDiv.textContent = "❌ Error: " + response.error;
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    responseDiv.textContent = "❌ Failed to submit. Please try again.";
+    fetch('https://script.google.com/macros/s/AKfycbxUzuwPc0ei86yobu9L_XpGOOl8aoSVWzeFhWrzFHIAWGFPrpc6bmZVOYbHQ64gqMLr/exec', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.success) {
+        responseDiv.innerHTML = `✅ Order placed! Your code is <strong>${result.orderCode}</strong>`;
+        form.reset();
+      } else {
+        responseDiv.textContent = "❌ Error: " + result.error;
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      responseDiv.textContent = "❌ Failed to submit. CORS or server error.";
+    });
   });
-});
-
 
 
 
