@@ -60,7 +60,7 @@
 
     function trackOrder() {
     const orderCode = document.getElementById("trackCode").value.trim();
-    const url = "YOUR_WEB_APP_URL" + "?orderCode=" + encodeURIComponent(orderCode);
+    const url = "https://script.google.com/macros/s/AKfycbwnaxSZE8CP51nccfmPQrmeK29Rumnw-1HJgIdlC95Yy-YzSj6WN57eHpG_mLTvl3y8Bg/exec" + "?orderCode=" + encodeURIComponent(orderCode);
 
     fetch(url)
       .then(res => res.json())
