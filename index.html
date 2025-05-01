@@ -24,18 +24,18 @@
       const url = "https://script.google.com/macros/s/AKfycbwnaxSZE8CP51nccfmPQrmeK29Rumnw-1HJgIdlC95Yy-YzSj6WN57eHpG_mLTvl3y8Bg/exec"; // Replace with your deployed Google Apps Script URL
 
       fetch(url, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.text())
-      .then(orderCode => {
-        document.getElementById('responseMessage').innerText = `Order submitted! Your code is: ${orderCode}`;
-        document.getElementById('orderForm').reset();
-      })
-      .catch(error => {
-        document.getElementById('responseMessage').innerText = 'Error submitting order. Please try again.';
-        console.error(error);
-      });
+  method: 'POST',
+  mode: 'no-cors',
+  body: formData
+})
+.then(() => {
+  document.getElementById('responseMessage').innerText = 'Submitted (no response due to no-cors)';
+})
+.catch(error => {
+  document.getElementById('responseMessage').innerText = 'Error!';
+  console.error(error);
+});
+
     });
   </script>
 </body>
