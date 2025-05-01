@@ -17,26 +17,35 @@
   <h3 id="responseMessage" style="color: green;"></h3>
 
   <script>
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-      const formData = new FormData(this);
-      const url = "https://script.google.com/macros/s/AKfycbwnaxSZE8CP51nccfmPQrmeK29Rumnw-1HJgIdlC95Yy-YzSj6WN57eHpG_mLTvl3y8Bg/exec"; // Replace with your deployed Google Apps Script URL
+    const formData = new FormData(this);
+    const url = "https://script.google.com/macros/s/AKfycbwnaxSZE8CP51nccfmPQrmeK29Rumnw-1HJgIdlC95Yy-YzSj6WN57eHpG_mLTvl3y8Bg/exec"; // Replace with your actual Apps Script Web App URL
 
-      fetch(url, {
-  method: 'POST',
-  mode: 'no-cors',
-  body: formData
-})
-.then(() => {
-  document.getElementById('responseMessage').innerText = 'Submitted (no response due to no-cors)';
-})
-.catch(error => {
-  document.getElementById('responseMessage').innerText = 'Error!';
-  console.error(error);
-});
-
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'success') {
+        document.getElementById('responseMessage').innerText = `Order submitted! Your code is: ${data.orderCode}`;
+        document.getElementById('orderForm').reset();
+      } else {
+        document.getElementById('responseMessage').innerText = 'Something went wrong.';
+      }
+    })
+    .catch(error => {
+      document.getElementById('responseMessage').innerText = 'Error submitting order. Please try again.';
+      console.error(error);
     });
+  });
+
+    
+      // const url = "https://script.google.com/macros/s/AKfycbwnaxSZE8CP51nccfmPQrmeK29Rumnw-1HJgIdlC95Yy-YzSj6WN57eHpG_mLTvl3y8Bg/exec"; // Replace with your deployed Google Apps Script URL
+
+
   </script>
 </body>
 </html>
