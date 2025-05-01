@@ -1,61 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <base target="_top">
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        padding: 2rem;
-        max-width: 500px;
-        margin: auto;
-      }
-      input, textarea, button {
-        width: 100%;
-        padding: 10px;
-        margin: 0.5rem 0;
-      }
-      #response {
-        margin-top: 1rem;
-        font-weight: bold;
-        color: green;
-      }
-    </style>
-  </head>
-  <body>
-    <h2>Place Your Order</h2>
-    <form id="orderForm">
-      <input type="text" id="name" placeholder="Name" required>
-      <input type="text" id="phone" placeholder="Phone Number" required>
-      <textarea id="address" placeholder="Address" required></textarea>
-      <textarea id="message" placeholder="Message (optional)"></textarea>
-      <button type="submit">Submit Order</button>
-    </form>
-    <div id="response"></div>
+<head>
+  <meta charset="UTF-8">
+  <title>Order Form</title>
+</head>
+<body>
+  <h2>Place Your Order</h2>
+  <form id="orderForm">
+    <label>Name: <input type="text" name="name" required></label><br><br>
+    <label>Phone: <input type="text" name="phone" required></label><br><br>
+    <label>Address: <input type="text" name="address" required></label><br><br>
+    <label>Message: <textarea name="message"></textarea></label><br><br>
+    <button type="submit">Submit</button>
+  </form>
 
-<!--     <script>
-      const form = document.getElementById('orderForm');
-      const responseDiv = document.getElementById('response');
+  <h3 id="responseMessage" style="color: green;"></h3>
 
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
+  <script>
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
 
-        const data = {
-          name: document.getElementById('name').value,
-          phone: document.getElementById('phone').value,
-          address: document.getElementById('address').value,
-          message: document.getElementById('message').value
-        };
+      const formData = new FormData(this);
+      const url = "https://script.google.com/macros/s/AKfycbwnaxSZE8CP51nccfmPQrmeK29Rumnw-1HJgIdlC95Yy-YzSj6WN57eHpG_mLTvl3y8Bg/exec"; // Replace with your deployed Google Apps Script URL
 
-        google.script.run.withSuccessHandler(function(response) {
-          if (response.success) {
-            responseDiv.innerHTML = `✅ Order placed! Your code is <strong>${response.orderCode}</strong>`;
-            form.reset();
-          } else {
-            responseDiv.textContent = "❌ Failed to place order.";
-          }
-        }).submitOrder(data);
+      fetch(url, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(orderCode => {
+        document.getElementById('responseMessage').innerText = `Order submitted! Your code is: ${orderCode}`;
+        document.getElementById('orderForm').reset();
+      })
+      .catch(error => {
+        document.getElementById('responseMessage').innerText = 'Error submitting order. Please try again.';
+        console.error(error);
       });
-    </script> -->
-    <script src='./script.js'></script>
-  </body>
+    });
+  </script>
+</body>
 </html>
