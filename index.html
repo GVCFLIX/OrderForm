@@ -56,7 +56,33 @@
 
     
       // const url = "https://script.google.com/macros/s/AKfycbwnaxSZE8CP51nccfmPQrmeK29Rumnw-1HJgIdlC95Yy-YzSj6WN57eHpG_mLTvl3y8Bg/exec"; // Replace with your deployed Google Apps Script URL
+// Order Tracking System 
 
+    function trackOrder() {
+    const orderCode = document.getElementById("trackCode").value.trim();
+    const url = "YOUR_WEB_APP_URL" + "?orderCode=" + encodeURIComponent(orderCode);
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          document.getElementById('trackingResult').innerText = "Order not found.";
+        } else {
+          document.getElementById('trackingResult').innerHTML = `
+            <strong>Order Code:</strong> ${data.orderCode}<br>
+            <strong>Name:</strong> ${data.name}<br>
+            <strong>Phone:</strong> ${data.phone}<br>
+            <strong>Address:</strong> ${data.address}<br>
+            <strong>Message:</strong> ${data.message}<br>
+            <strong>Ordered At:</strong> ${data.timestamp}
+          `;
+        }
+      })
+      .catch(err => {
+        document.getElementById('trackingResult').innerText = "Error checking order.";
+        console.error(err);
+      });
+  }
 
   </script>
 </body>
